@@ -305,7 +305,7 @@ CREATE INDEX IF NOT EXISTS idx_visitor_created ON visitor(created_at DESC);
 INSERT INTO "user" (username, hashed_password, nickname, is_admin)
 VALUES (
     'admin',
-    '$2b$12$LJ3m4ys4Pz0C5eK8rZqYaOzLiGh5v1DmdMFRnDvMQfLpUfKlPu5S.',
+    '$2b$12$H4nKVctF4OMHYCNyiQyiK./0vZ7OYV8gHa.oODKRYh3L.oG1YBixu',
     '管理员',
     TRUE
 ) ON CONFLICT (username) DO NOTHING;

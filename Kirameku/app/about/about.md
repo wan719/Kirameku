@@ -1,30 +1,33 @@
 ---
-cover: "/images/2.webp"
+cover: "/images/wan-about-cover.png"
 ---
 
-## 你好，我是 Starhiro
+## 你好，我是 wan
 
-一位在读软件工程的大二学生，喜欢折腾技术，偶尔写写博客记录生活。
+我是一名软件工程专业的大三学生，目前的科研方向是自动驾驶世界模型。喜欢动手做项目，也喜欢借助大模型和 Agent 探索新的做事方式。这个小站会记录我的学习、科研、项目和生活。
 
-## 关于这个博客
+## 我在学习与实践的方向
 
-这个博客使用 **Next.js 16 + React 19 + Tailwind CSS 4** 构建，采用玻璃拟态（Glassmorphism）设计风格。在这里你可以看到我写的技术文章、日常说说、一起聊天的杂谈，还有照片墙和左下角内置的一些实用小工具。
+我关注前后端开发和 AI 应用。公开项目 [InternPilot 智能实习领航员](https://github.com/wan719/intern-pilot) 是一个面向大学生的实习求职平台，围绕简历优化、岗位匹配、面试准备和投递管理展开。
 
-## 技术栈
+这个项目中用到的技术，也是我目前在实践的方向：
 
-- **主力：** Spring Boot, Vue, React, Next.js, Python
-- **略懂：** LangChain, Flutter, Kotlin
-- **其他：** Git, Docker, Linux, TypeScript, Tailwind CSS
+- **后端：** Java、Spring Boot、Spring Security、MyBatis-Plus
+- **前端：** Vue 3、TypeScript、Vite
+- **数据与部署：** MySQL、Redis、Docker
+- **AI 应用：** 大模型 API 接入、RAG 岗位知识库
 
-## 兴趣爱好
+## 科研方向：自动驾驶世界模型
 
-- 写代码，折腾各种项目
-- 听音乐，偶尔看看动漫
-- 爱运动，喜欢跑步
+我正在探索自动驾驶中的世界模型：如何让系统理解周围的交通场景，预测环境接下来可能发生的变化，并将这些理解用于驾驶决策。这是我持续学习和研究的方向，之后也会在这里记录相关的思考与进展。
+
+## 工作之外
+
+我喜欢运动和跑步，也会打游戏，尤其是《无畏契约》（Valorant）。平时还喜欢探索新知识，尝试用大模型 Agent 帮自己学习和解决问题。
 
 ## 联系我
 
-- **GitHub：** [github.com/Xinghongia](https://github.com/Xinghongia)
-- **Email：** [3376219386@qq.com](mailto:3376219386@qq.com)
-
-> Stay hungry, stay foolish. —— 求知若饥，虚心若愚。
+- 邮箱：[3425446714@qq.com](mailto:3425446714@qq.com)
+- GitHub：[wan719](https://github.com/wan719)
+- 项目：[InternPilot 源码](https://github.com/wan719/intern-pilot)
+- 也可以在[留言页](/messages)打个招呼。

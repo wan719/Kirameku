@@ -20,7 +20,7 @@ export default function BackgroundRenderer() {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `url(${bgImage || siteConfig.bgImages[0]})`,
+              backgroundImage: `url(${bgImage || siteConfig.defaultBgImage})`,
             }}
           />
           {/* 深色模式遮罩 */}

@@ -29,12 +29,17 @@ export function BackgroundProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const savedImg = localStorage.getItem("bg-image");
     const savedBlur = localStorage.getItem("bg-blur");
+    const defaultVersion = localStorage.getItem("bg-default-version");
 
-    if (savedImg && siteConfig.bgImages.includes(savedImg)) {
+    // 上一版默认背景会自动写入本地存储，迁移一次后仍保留用户后续的选择。
+    if (defaultVersion !== "2" && savedImg === "/images/wan-bg-08.png") {
+      setBgImage(siteConfig.defaultBgImage);
+    } else if (savedImg && siteConfig.bgImages.includes(savedImg)) {
       setBgImage(savedImg);
     } else {
-      setBgImage(siteConfig.bgImages[siteConfig.bgImages.length - 1]);
+      setBgImage(siteConfig.defaultBgImage);
     }
+    localStorage.setItem("bg-default-version", "2");
 
     setBgBlur(savedBlur ? Number(savedBlur) : 20);
     setMounted(true);

@@ -52,7 +52,7 @@ export default function WelcomeScreen() {
           <motion.div
             className="absolute inset-0 opacity-20"
             style={{
-              backgroundImage: `url(${siteConfig.bgImages[0]})`,
+              backgroundImage: `url(${siteConfig.defaultBgImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               filter: "blur(20px)",

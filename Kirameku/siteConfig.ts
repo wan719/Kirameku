@@ -2,25 +2,28 @@
 
 export const siteConfig = {
   // 网站标题与博主信息
-  title: "Starhiroの小站",
+  title: "Wanの小站",
   url: "https://boke.hiromu.top",
-  authorName: "Starhiro",
-  bio: "项目开源在 GitHub,点击下面的GitHub图标跳转,欢迎 star 和 fork！(◕‿◕)",
+  authorName: "Wan",
+  bio: "软件工程大三学生，喜欢开发、跑步、游戏，也在探索大模型 Agent。",
 
   // 头像设置
-  avatarUrl: "/images/hong.jpg",
+  avatarUrl: "/images/wan-avatar.png",
 
   // 背景设置
   useGradient: false,
   themeColors: ["#a18cd1", "#fbc2eb", "#a1c4fd", "#c2e9fb"],
   bgImages: [
-    "/images/1.webp",
-    "/images/42.webp",
-    "/images/20.webp",
-    "/images/36.webp",
-    "/images/39.webp",
-    "/images/41.webp",
+    "/images/wan-bg-01.png",
+    "/images/wan-bg-02.png",
+    "/images/wan-bg-03.png",
+    "/images/wan-bg-04.png",
+    "/images/wan-bg-05.png",
+    "/images/wan-bg-06.png",
+    "/images/wan-bg-07.png",
+    "/images/wan-bg-08.png",
   ],
+  defaultBgImage: "/images/wan-bg-05.png",
 
   // 默认封面图
   defaultPostCover: "/images/default-cover.jpg",
@@ -28,9 +31,10 @@ export const siteConfig = {
   // 照片墙预览图
   photoWallImage: "/images/photo-wall.jpg",
 
-  // 云音乐配置（网易云音乐）
+  // 云音乐配置（netease：网易云音乐；tencent：QQ 音乐）
   // 填歌单 ID 则自动拉取整个歌单，填歌曲 ID 列表则只播放指定歌曲
-  cloudMusicPlaylistId: "17943739323",  // 歌单 ID（优先）
+  cloudMusicServer: "tencent",
+  cloudMusicPlaylistId: "9804321125",  // 歌单 ID（优先）
   cloudMusicIds: [],                     // 歌曲 ID 列表（歌单为空时使用）
 
   // 后端 API 地址（留空，开发通过 next.config.ts rewrites 代理，生产通过 Nginx 反代）
@@ -38,12 +42,12 @@ export const siteConfig = {
 
   // 社交链接
   social: {
-    github: "https://github.com/Xinghongia/Kirameku",
-    gitee: "https://gitee.com/hongzyh",
-    google: "mailto:guh982719@gmail.com",
-    email: "your.email@example.com",
-    qq: "123456789",
-    wechat: "your_wechat_id",
+    github: "https://github.com/wan719",
+    gitee: "",
+    google: "",
+    email: "3425446714@qq.com",
+    qq: "",
+    wechat: "",
   },
 
   // 站点信息
@@ -54,11 +58,11 @@ export const siteConfig = {
     { name: "Tailwind 4", color: "text-teal-400" },
   ],
   icpConfig: {
-    name: "赣ICP备2025078417号",
+    name: "",
     link: "https://beian.miit.gov.cn/",
   },
   moeIcpConfig: {
-    name: "萌ICP备20260527号",
+    name: "",
     link: "https://icp.gov.moe/?keyword=20260527",
   },
 

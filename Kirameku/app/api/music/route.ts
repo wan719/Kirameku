@@ -14,6 +14,11 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const playlistId = searchParams.get("id");
   const songIds = searchParams.get("ids");
+  const server = searchParams.get("server") || "netease";
+
+  if (server !== "netease" && server !== "tencent") {
+    return NextResponse.json({ error: "不支持的音乐平台" }, { status: 400 });
+  }
 
   if (!playlistId && !songIds) {
     return NextResponse.json(
@@ -22,7 +27,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const meting = new Meting("netease");
+  const meting = new Meting(server);
   meting.format(true);
 
   try {
@@ -75,7 +80,7 @@ export async function GET(req: NextRequest) {
           artist: Array.isArray(track.artist) ? track.artist.join(", ") : String(track.artist || "未知歌手"),
           cover,
           src,
-          lrcUrl: track.lyric_id ? `https://api.injahow.cn/meting/?server=netease&type=lrc&id=${track.lyric_id}` : "",
+          lrcUrl: track.lyric_id ? `https://api.injahow.cn/meting/?server=${server}&type=lrc&id=${encodeURIComponent(track.lyric_id)}` : "",
         };
       })
     );
