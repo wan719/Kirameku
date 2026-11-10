@@ -55,7 +55,7 @@ export default function HomeClient({
           </div>
         </FadeIn>
 
-        {/* 第二行：照片墙 + 文章 + 说说 + 舔狗日记 */}
+        {/* 第二行：照片墙 + 文章 + 说说 + wan 的碎片 */}
         <FadeIn delay={0.2}>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 w-full items-stretch">
             <div className="md:col-span-4 h-full">
