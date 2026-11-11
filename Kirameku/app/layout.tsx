@@ -38,6 +38,10 @@ const notoSerifSC = Noto_Serif_SC({
 export const metadata: Metadata = {
   title: siteConfig.title,
   description: siteConfig.bio,
+  icons: {
+    icon: siteConfig.avatarUrl,
+    apple: siteConfig.avatarUrl,
+  },
   alternates: {
     types: {
       "application/rss+xml": "/feed",
