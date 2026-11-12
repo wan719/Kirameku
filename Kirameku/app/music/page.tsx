@@ -87,7 +87,7 @@ function MusicCard({ children, className = "" }: { children: React.ReactNode; cl
 
 export default function MusicPage() {
   const {
-    playlist, currentIndex, currentSong, isPlaying, progress, currentTime, duration,
+    catalog, currentIndex, currentSong, isPlaying, progress, currentTime, duration,
     currentLyric, allLyrics, isLoading, volume, isMuted, playMode,
     togglePlay, nextSong, prevSong, handleSeek, playSong,
     setVolume, toggleMute, togglePlayMode,
@@ -96,6 +96,20 @@ export default function MusicPage() {
   const lyricContainerRef = useRef<HTMLDivElement>(null);
   const activeLyricRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<"lyrics" | "playlist">("lyrics");
+  const displayCatalog = useMemo(() => {
+    let nextIndex = 0;
+    return catalog
+      .map((song, originalIndex) => ({
+        song,
+        originalIndex,
+        playableIndex: song.src ? nextIndex++ : -1,
+      }))
+      .sort((a, b) => Number(Boolean(b.song.src)) - Number(Boolean(a.song.src)));
+  }, [catalog]);
+  const playableCount = displayCatalog.filter(({ song }) => song.src).length;
+
+  const songLink = (title: string, artist: string) =>
+    `https://y.qq.com/n/ryqq/search?w=${encodeURIComponent(`${title} ${artist}`)}`;
 
   const activeLyricIndex = useMemo(() => {
     if (!allLyrics.length) return -1;
@@ -133,8 +147,19 @@ export default function MusicPage() {
       <div className="max-w-4xl mx-auto px-4 py-6 md:py-12">
         <MusicCard>
           <div className="flex items-center justify-center h-40 md:h-64">
-            <div className="text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium">暂无音乐，请在 siteConfig 中配置 cloudMusicIds</div>
+            <div className="text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium">
+              {catalog.length ? "当前歌曲暂无法在站内播放，可前往 QQ 音乐查看歌单。" : "暂无音乐，请检查歌单配置"}
+            </div>
           </div>
+          {catalog.length > 0 && (
+            <div className="space-y-2">
+              {catalog.map((song, i) => (
+                <a key={`${song.id}-${i}`} href={songLink(song.title, song.artist)} target="_blank" rel="noopener noreferrer" className="block rounded-lg px-3 py-2 text-sm text-slate-700 dark:text-slate-200 hover:bg-white/40 dark:hover:bg-slate-700/40">
+                  {String(i + 1).padStart(2, "0")} · {song.title} — {song.artist} <span className="text-indigo-500">在 QQ 音乐搜索</span>
+                </a>
+              ))}
+            </div>
+          )}
         </MusicCard>
       </div>
     );
@@ -260,7 +285,7 @@ export default function MusicPage() {
               ? "bg-white/60 dark:bg-slate-700/70 text-indigo-600 dark:text-indigo-400 shadow-sm"
               : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
           }`}>
-          {Icons.playlist} 播放列表
+          {Icons.playlist} 播放列表（{catalog.length}）
         </button>
       </div>
 
@@ -308,27 +333,34 @@ export default function MusicPage() {
           <motion.div key="playlist" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }}>
             <MusicCard>
               <div className="space-y-1">
-                {playlist.map((song, i) => (
+                {displayCatalog.map(({ song, originalIndex, playableIndex }, i) => (
+                  <div key={`${song.id}-${originalIndex}`}>
+                  {i === 0 && !!song.src && (
+                    <div className="px-2 pb-2 text-xs font-semibold text-slate-500 dark:text-slate-400">站内可播（{playableCount}）</div>
+                  )}
+                  {i === playableCount && !song.src && (
+                    <div className="px-2 pt-5 pb-2 text-xs font-semibold text-slate-500 dark:text-slate-400">站内不可播（{catalog.length - playableCount}）</div>
+                  )}
                   <button
-                    key={song.id}
                     type="button"
-                    onClick={() => playSong(i)}
+                    disabled={!song.src}
+                    onClick={() => playSong(playableIndex)}
                     className={`w-full flex items-center gap-2 md:gap-3 px-2 py-2 md:px-3 md:py-3 rounded-lg md:rounded-xl transition-all duration-300 text-left group ${
-                      i === currentIndex
+                      playableIndex === currentIndex && !!song.src
                         ? "bg-indigo-500/10 dark:bg-indigo-500/20 shadow-sm"
-                        : "hover:bg-white/40 dark:hover:bg-slate-700/40 hover:shadow-sm hover:scale-[1.005]"
+                        : song.src ? "hover:bg-white/40 dark:hover:bg-slate-700/40 hover:shadow-sm hover:scale-[1.005]" : "opacity-70"
                     }`}
                   >
                     {/* Index */}
                     <div className="w-5 md:w-6 text-center shrink-0">
-                      {i === currentIndex && isPlaying ? (
+                      {playableIndex === currentIndex && !!song.src && isPlaying ? (
                         <div className="flex items-end justify-center gap-[2px] h-4">
                           {[0, 1, 2].map((j) => (
                             <div key={j} className="w-1 bg-indigo-500 rounded-t-sm animate-pulse" style={{ height: `${6 + j * 4}px`, animationDelay: `${j * 150}ms` }} />
                           ))}
                         </div>
                       ) : (
-                        <span className={`text-[10px] md:text-xs font-bold tabular-nums ${i === currentIndex ? "text-indigo-500" : "text-slate-600 dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-white"}`}>
+                        <span className={`text-[10px] md:text-xs font-bold tabular-nums ${playableIndex === currentIndex && !!song.src ? "text-indigo-500" : "text-slate-600 dark:text-slate-300 group-hover:text-slate-800 dark:group-hover:text-white"}`}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
                       )}
@@ -339,18 +371,24 @@ export default function MusicPage() {
                     </div>
                     {/* Info */}
                     <div className="flex-1 min-w-0">
-                      <div className={`text-xs md:text-sm font-bold truncate ${i === currentIndex ? "text-indigo-600 dark:text-indigo-300" : "text-slate-800 dark:text-slate-100"}`}>
+                      <div className={`text-xs md:text-sm font-bold truncate ${playableIndex === currentIndex && !!song.src ? "text-indigo-600 dark:text-indigo-300" : "text-slate-800 dark:text-slate-100"}`}>
                         {song.title}
                       </div>
                       <div className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-medium truncate">{song.artist}</div>
                     </div>
                     {/* Play indicator */}
-                    {i === currentIndex && (
+                    {!song.src ? (
+                      <span className="text-[10px] text-slate-500 shrink-0">站内不可播</span>
+                    ) : playableIndex === currentIndex && (
                       <div className="text-indigo-500 shrink-0">
                         {isPlaying ? Icons.pause : Icons.play}
                       </div>
                     )}
                   </button>
+                  {!song.src && (
+                    <a href={songLink(song.title, song.artist)} target="_blank" rel="noopener noreferrer" className="block px-3 pb-2 text-right text-xs text-indigo-600 dark:text-indigo-300 hover:underline">在 QQ 音乐搜索</a>
+                  )}
+                  </div>
                 ))}
               </div>
             </MusicCard>

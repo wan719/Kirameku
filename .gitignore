@@ -66,6 +66,10 @@ uploads/
 .eslintcache
 report.html
 
+# 本地文档
+/doc/
+/docs/
+
 # Star 记录
 star-history.md
 

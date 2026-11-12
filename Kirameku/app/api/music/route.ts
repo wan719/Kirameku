@@ -85,7 +85,8 @@ export async function GET(req: NextRequest) {
       })
     );
 
-    return NextResponse.json(songs.filter((s) => s.src));
+    // Keep unavailable tracks in the catalog so the page can show the full playlist.
+    return NextResponse.json(songs);
   } catch (err) {
     console.error("Meting error:", err);
     return NextResponse.json(
